@@ -44,7 +44,7 @@ describe('CancelablePromise test', () => {
 
       const cp = new CancelablePromise(resolve => resolve(initValue))
       const cp2 = cp.then(v => {
-        return new Promise(resolve => setTimeout(() => resolve(onFulfilled(v))))
+        return new CancelablePromise(resolve => setTimeout(() => resolve(onFulfilled(v))))
       })
 
       expect(cp).not.toBe(cp2)
