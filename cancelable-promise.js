@@ -86,6 +86,7 @@ class CancelablePromise {
         if (typeof onReject === "function") {
           try {
             const result = onReject(reason);
+
             if (result instanceof CancelablePromise) {
               result.then(resolve, reject).catch(reject);
             } else {
@@ -117,6 +118,9 @@ class CancelablePromise {
     this.state = "rejected";
     this.isCanceled = true;
     this.handlers = [];
+    this.value = { isCanceled: true }
+
+    return this;
   }
 
   executeHandler(handler) {
